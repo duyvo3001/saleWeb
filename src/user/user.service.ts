@@ -1,6 +1,8 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from "@nestjs/common";
+import { UserDto } from "src/dataTranferObject/User.dto";
 import { User } from "src/models/user.model";
+import { UserModule } from "./user.module";
 @Injectable()
 export class UserService {
   private users: User[] = [
@@ -13,8 +15,13 @@ export class UserService {
     return this.users;
   }
 
-  createUser(): string {
-    return "create user";
+  createUser(userDto : UserDto): UserModule {
+    const user : UserModule ={
+      id : Math.random(),
+      ... userDto
+    };
+    this.users.push(user)
+    return this.users;
   }
 
   detailUser(id: number): User {

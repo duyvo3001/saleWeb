@@ -195,8 +195,10 @@ module.exports = function (updatedModules, renewedModules) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __webpack_require__(4);
 const app_module_1 = __webpack_require__(5);
+const validation_pipe_1 = __webpack_require__(16);
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
+    app.useGlobalPipes(new validation_pipe_1.ValidationPipe());
     await app.listen(3000);
     if (true) {
         module.hot.accept();
@@ -388,7 +390,7 @@ let UserController = class UserController {
     }
     createUser(userDto) {
         try {
-            return new globalClass_1.ResponseData(userDto, globalEnum_1.HttpStatus.SUCCESS, globalEnum_1.HttpMessage.SUCCESS);
+            return new globalClass_1.ResponseData(this.usersevervice.createUser(userDto), globalEnum_1.HttpStatus.SUCCESS, globalEnum_1.HttpMessage.SUCCESS);
         }
         catch (error) {
             return new globalClass_1.ResponseData(null, globalEnum_1.HttpStatus.ERROR, globalEnum_1.HttpMessage.ERROR);
@@ -484,8 +486,13 @@ let UserService = class UserService {
     getUser() {
         return this.users;
     }
-    createUser() {
-        return "create user";
+    createUser(userDto) {
+        const user = {
+            id: Math.random(),
+            ...userDto
+        };
+        this.users.push(user);
+        return this.users;
     }
     detailUser(id) {
         return this.users.find(item => item.id == id);
@@ -580,6 +587,52 @@ __decorate([
 "use strict";
 module.exports = require("class-validator");
 
+/***/ }),
+/* 16 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ValidationPipe = void 0;
+const common_1 = __webpack_require__(6);
+const class_transformer_1 = __webpack_require__(17);
+const class_validator_1 = __webpack_require__(15);
+let ValidationPipe = class ValidationPipe {
+    async transform(value, { metatype }) {
+        if (!metatype || this.toValidate(metatype)) {
+            return value;
+        }
+        const object = (0, class_transformer_1.plainToInstance)(metatype, value);
+        const eror = await (0, class_validator_1.validate)(object);
+        if (eror.length > 0) {
+            throw new common_1.BadRequestException("Validation failed");
+        }
+    }
+    toValidate(metatype) {
+        const types = [String, Boolean, Number, Array, Object];
+        return !types.includes(metatype);
+    }
+};
+exports.ValidationPipe = ValidationPipe;
+exports.ValidationPipe = ValidationPipe = __decorate([
+    (0, common_1.Injectable)()
+], ValidationPipe);
+
+
+/***/ }),
+/* 17 */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("class-transformer");
+
 /***/ })
 /******/ 	]);
 /************************************************************************/
@@ -642,7 +695,7 @@ module.exports = require("class-validator");
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("7ec3631d85262c4cf1b6")
+/******/ 		__webpack_require__.h = () => ("ed9021217fa834453999")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

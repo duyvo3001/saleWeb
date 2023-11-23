@@ -41,7 +41,7 @@ let UserController = class UserController {
     }
     createUser(userDto) {
         try {
-            return new globalClass_1.ResponseData(userDto, globalEnum_1.HttpStatus.SUCCESS, globalEnum_1.HttpMessage.SUCCESS);
+            return new globalClass_1.ResponseData(this.usersevervice.createUser(userDto), globalEnum_1.HttpStatus.SUCCESS, globalEnum_1.HttpMessage.SUCCESS);
         }
         catch (error) {
             return new globalClass_1.ResponseData(null, globalEnum_1.HttpStatus.ERROR, globalEnum_1.HttpMessage.ERROR);
@@ -118,7 +118,7 @@ exports.runtime =
 /******/ function(__webpack_require__) { // webpackRuntimeModules
 /******/ /* webpack/runtime/getFullHash */
 /******/ (() => {
-/******/ 	__webpack_require__.h = () => ("408dd0b27c7c7a123080")
+/******/ 	__webpack_require__.h = () => ("b28c6ab788dd9f1f3531")
 /******/ })();
 /******/ 
 /******/ }

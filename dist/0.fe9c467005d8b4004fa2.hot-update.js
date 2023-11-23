@@ -3,7 +3,7 @@ exports.id = 0;
 exports.ids = null;
 exports.modules = {
 
-/***/ 14:
+/***/ 11:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -13,23 +13,37 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.UserDto = void 0;
-const class_validator_1 = __webpack_require__(15);
-class UserDto {
-}
-exports.UserDto = UserDto;
-__decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    __metadata("design:type", String)
-], UserDto.prototype, "name", void 0);
-__decorate([
-    (0, class_validator_1.MinLength)(7, { message: "Please enter 6" }),
-    __metadata("design:type", String)
-], UserDto.prototype, "email", void 0);
+exports.UserService = void 0;
+const common_1 = __webpack_require__(6);
+let UserService = class UserService {
+    constructor() {
+        this.users = [
+            { id: 1, name: "duyvo1", email: "1duyvo3001@gmail.com", phoneNumber: "10964068675", },
+            { id: 2, name: "duyvo2", email: "2duyvo3001@gmail.com", phoneNumber: "20964068675", },
+            { id: 3, name: "duyvo3", email: "3duyvo3001@gmail.com", phoneNumber: "30964068675", },
+        ];
+    }
+    getUser() {
+        return this.users;
+    }
+    createUser(userDto) {
+        return userDto;
+    }
+    detailUser(id) {
+        return this.users.find(item => item.id == id);
+    }
+    updateUser() {
+        return "update user";
+    }
+    deleteUser() {
+        return "delete user";
+    }
+};
+exports.UserService = UserService;
+exports.UserService = UserService = __decorate([
+    (0, common_1.Injectable)()
+], UserService);
 
 
 /***/ })
@@ -39,7 +53,7 @@ exports.runtime =
 /******/ function(__webpack_require__) { // webpackRuntimeModules
 /******/ /* webpack/runtime/getFullHash */
 /******/ (() => {
-/******/ 	__webpack_require__.h = () => ("8fbd84f2c627beef9121")
+/******/ 	__webpack_require__.h = () => ("e57469be3a5a88a2b962")
 /******/ })();
 /******/ 
 /******/ }

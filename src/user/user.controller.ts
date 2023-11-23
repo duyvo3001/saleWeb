@@ -5,6 +5,7 @@ import { ResponseData } from "src/global/globalClass";
 import { HttpMessage, HttpStatus } from "src/global/globalEnum";
 import { User } from "src/models/user.model";
 import { UserDto } from "src/dataTranferObject/User.dto";
+import { UserModule } from "./user.module";
 
 @Controller("users")
 export class UserController {
@@ -22,9 +23,9 @@ export class UserController {
   @Post()
   createUser(@Body(new ValidationPipe()) userDto: UserDto): ResponseData<UserDto> {
     try {
-      return new ResponseData<UserDto>(userDto, HttpStatus.SUCCESS, HttpMessage.SUCCESS,);
+      return new ResponseData<UserModule>(this.usersevervice.createUser(userDto), HttpStatus.SUCCESS, HttpMessage.SUCCESS,);
     } catch (error) {
-      return new ResponseData<UserDto>(null, HttpStatus.ERROR, HttpMessage.ERROR,);
+      return new ResponseData<UserModule>(null, HttpStatus.ERROR, HttpMessage.ERROR,);
     }
   }
 
