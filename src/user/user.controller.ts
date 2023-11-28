@@ -23,6 +23,7 @@ export class UserController {
   @Post()
   createUser(@Body(new ValidationPipe()) userDto: UserDto): ResponseData<UserDto> {
     try {
+      console.log(userDto)
       return new ResponseData<UserModule>(this.usersevervice.createUser(userDto), HttpStatus.SUCCESS, HttpMessage.SUCCESS,);
     } catch (error) {
       return new ResponseData<UserModule>(null, HttpStatus.ERROR, HttpMessage.ERROR,);
@@ -32,18 +33,20 @@ export class UserController {
   @Get("/:id")
   detailUser(@Param("id") id: number): ResponseData<User> {
     try {
-      return new ResponseData<User>(this.usersevervice.detailUser(id),HttpStatus.SUCCESS, HttpMessage.SUCCESS,);
+      console.log(id)
+      return new ResponseData<User>(this.usersevervice.detailUser(id), HttpStatus.SUCCESS, HttpMessage.SUCCESS,);
     } catch (error) {
       return new ResponseData<User>(null, HttpStatus.ERROR, HttpMessage.ERROR);
     }
   }
 
   @Put("/:id")
-  updateUser(): ResponseData<string> {
+  updateUser(@Param('id') id: string, @Body() userDto: UserDto): ResponseData<User> {
     try {
-      return new ResponseData<string>(this.usersevervice.updateUser(),HttpStatus.SUCCESS,HttpMessage.SUCCESS,);
+      console.log(id, userDto)
+      return new ResponseData<User>(this.usersevervice.updateUser(id,userDto), HttpStatus.SUCCESS, HttpMessage.SUCCESS,);
     } catch (error) {
-      return new ResponseData<string>(null, HttpStatus.ERROR, HttpMessage.ERROR,
+      return new ResponseData<User>(null, HttpStatus.ERROR, HttpMessage.ERROR,
       );
     }
   }
@@ -51,10 +54,10 @@ export class UserController {
   @Delete("/:id")
   deleteUser(): ResponseData<string> {
     try {
-      return new ResponseData<string>(this.usersevervice.deleteUser(),HttpStatus.SUCCESS,HttpMessage.SUCCESS,
+      return new ResponseData<string>(this.usersevervice.deleteUser(), HttpStatus.SUCCESS, HttpMessage.SUCCESS,
       );
     } catch (error) {
-      return new ResponseData<string>(null,HttpStatus.ERROR, HttpMessage.ERROR,
+      return new ResponseData<string>(null, HttpStatus.ERROR, HttpMessage.ERROR,
       );
     }
   }

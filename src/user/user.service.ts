@@ -2,7 +2,6 @@
 import { Injectable } from "@nestjs/common";
 import { UserDto } from "src/dataTranferObject/User.dto";
 import { User } from "src/models/user.model";
-import { UserModule } from "./user.module";
 @Injectable()
 export class UserService {
   private users: User[] = [
@@ -15,21 +14,28 @@ export class UserService {
     return this.users;
   }
 
-  createUser(userDto : UserDto): UserModule {
-    const user : UserModule ={
-      id : Math.random(),
-      ... userDto
+  createUser(userDto: UserDto): User {
+    const user: User = {
+      id: Math.random(),
+      ...userDto
     };
     this.users.push(user)
-    return this.users;
+    return user;
   }
 
   detailUser(id: number): User {
+    console.log(id);
     return this.users.find(item => item.id == id);
   }
 
-  updateUser(): string {
-    return "update user";
+  updateUser( id: string , userDto: UserDto): User {
+    console.log(id,userDto)
+    // const index = this.users.findIndex(item => item.id == id);
+    const index = 1 ; 
+    // this.users[index].email = userDto.email;
+    // this.users[index].name = userDto.name;
+    // this.users[index].phoneNumber = userDto.phoneNumber;
+    return this.users[index];
   }
 
   deleteUser(): string {
