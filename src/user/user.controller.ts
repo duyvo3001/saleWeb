@@ -30,7 +30,7 @@ export class UserController {
     }
   }
 
-  @Get("/:id")
+  @Get(":id")
   detailUser(@Param("id") id: number): ResponseData<User> {
     try {
       console.log(id)
@@ -40,10 +40,10 @@ export class UserController {
     }
   }
 
-  @Put("/:id")
+  @Put(':id')
   updateUser(@Param('id') id: string, @Body() userDto: UserDto): ResponseData<User> {
     try {
-      console.log(id, userDto)
+      console.info(id)
       return new ResponseData<User>(this.usersevervice.updateUser(id,userDto), HttpStatus.SUCCESS, HttpMessage.SUCCESS,);
     } catch (error) {
       return new ResponseData<User>(null, HttpStatus.ERROR, HttpMessage.ERROR,
@@ -51,7 +51,7 @@ export class UserController {
     }
   }
 
-  @Delete("/:id")
+  @Delete(":id")
   deleteUser(): ResponseData<string> {
     try {
       return new ResponseData<string>(this.usersevervice.deleteUser(), HttpStatus.SUCCESS, HttpMessage.SUCCESS,

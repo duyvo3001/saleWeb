@@ -29,13 +29,22 @@ export class UserService {
   }
 
   updateUser( id: string , userDto: UserDto): User {
-    console.log(id,userDto)
+    console.log(userDto)
     // const index = this.users.findIndex(item => item.id == id);
-    const index = 1 ; 
+    if (id == "hello") {
+      // this.users[index].email = userDto.email;
+      // this.users[index].name = userDto.name;
+      // this.users[index].phoneNumber = userDto.phoneNumber;
+      return this.users[1];
+    } else {
+      return null; // Or throw an error, or handle it according to your application's logic
+    }
+    // const index = this.users.findIndex(item => item.id == id);
+    // const index = 1 ; 
     // this.users[index].email = userDto.email;
     // this.users[index].name = userDto.name;
     // this.users[index].phoneNumber = userDto.phoneNumber;
-    return this.users[index];
+    // return this.users[index];
   }
 
   deleteUser(): string {
