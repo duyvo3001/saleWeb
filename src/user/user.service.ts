@@ -23,28 +23,20 @@ export class UserService {
     return user;
   }
 
-  detailUser(id: number): User {
-    console.log(id);
-    return this.users.find(item => item.id == id);
+  detailUser(params: number): User { 
+    console.log(params);
+    // return this.users.find(item => item.id == id);
+    return this.users[1]
   }
 
-  updateUser( id: string , userDto: UserDto): User {
-    console.log(userDto)
+  updateUser(userDto: UserDto, ID: number): User {
+    console.log(userDto, ID)
     // const index = this.users.findIndex(item => item.id == id);
-    if (id == "hello") {
-      // this.users[index].email = userDto.email;
-      // this.users[index].name = userDto.name;
-      // this.users[index].phoneNumber = userDto.phoneNumber;
-      return this.users[1];
-    } else {
-      return null; // Or throw an error, or handle it according to your application's logic
-    }
-    // const index = this.users.findIndex(item => item.id == id);
-    // const index = 1 ; 
-    // this.users[index].email = userDto.email;
-    // this.users[index].name = userDto.name;
-    // this.users[index].phoneNumber = userDto.phoneNumber;
-    // return this.users[index];
+    // const index = 1;
+    // this.users[index].email = userDto?.email;
+    // this.users[index].name = userDto?.name;
+    // this.users[index].phoneNumber = userDto?.phoneNumber;
+    return this.users[1];
   }
 
   deleteUser(): string {

@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Controller, Delete, Get, Post, Put, Param, Body, ValidationPipe } from "@nestjs/common";
+import { Controller, Delete, Get, Post, Put , Body, ValidationPipe, Param } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { ResponseData } from "src/global/globalClass";
 import { HttpMessage, HttpStatus } from "src/global/globalEnum";
@@ -7,7 +7,7 @@ import { User } from "src/models/user.model";
 import { UserDto } from "src/dataTranferObject/User.dto";
 import { UserModule } from "./user.module";
 
-@Controller("users")
+@Controller('users')
 export class UserController {
   constructor(private readonly usersevervice: UserService) { }
 
@@ -28,23 +28,23 @@ export class UserController {
     } catch (error) {
       return new ResponseData<UserModule>(null, HttpStatus.ERROR, HttpMessage.ERROR,);
     }
-  }
+  } 
 
-  @Get(":id")
-  detailUser(@Param("id") id: number): ResponseData<User> {
+  @Get(':id')
+  detailUser(@Param('id') id: number): ResponseData<User> {
     try {
-      console.log(id)
-      return new ResponseData<User>(this.usersevervice.detailUser(id), HttpStatus.SUCCESS, HttpMessage.SUCCESS,);
+      console.log(id);
+      return new ResponseData<User>(this.usersevervice.detailUser(id), HttpStatus.SUCCESS, HttpMessage.SUCCESS);
     } catch (error) {
       return new ResponseData<User>(null, HttpStatus.ERROR, HttpMessage.ERROR);
     }
   }
 
-  @Put(':id')
-  updateUser(@Param('id') id: string, @Body() userDto: UserDto): ResponseData<User> {
+  @Put('/:ID')
+  updateUser(@Body() userDto: UserDto, @Param('ID') ID: number): ResponseData<User> {
     try {
-      console.info(id)
-      return new ResponseData<User>(this.usersevervice.updateUser(id,userDto), HttpStatus.SUCCESS, HttpMessage.SUCCESS,);
+      console.info(ID)
+      return new ResponseData<User>(this.usersevervice.updateUser(userDto, ID), HttpStatus.SUCCESS, HttpMessage.SUCCESS,);
     } catch (error) {
       return new ResponseData<User>(null, HttpStatus.ERROR, HttpMessage.ERROR,
       );

@@ -406,10 +406,10 @@ let UserController = class UserController {
             return new globalClass_1.ResponseData(null, globalEnum_1.HttpStatus.ERROR, globalEnum_1.HttpMessage.ERROR);
         }
     }
-    updateUser(id, userDto) {
+    updateUser(userDto, ID) {
         try {
-            console.info(id);
-            return new globalClass_1.ResponseData(this.usersevervice.updateUser(id, userDto), globalEnum_1.HttpStatus.SUCCESS, globalEnum_1.HttpMessage.SUCCESS);
+            console.info(ID);
+            return new globalClass_1.ResponseData(this.usersevervice.updateUser(userDto, ID), globalEnum_1.HttpStatus.SUCCESS, globalEnum_1.HttpMessage.SUCCESS);
         }
         catch (error) {
             return new globalClass_1.ResponseData(null, globalEnum_1.HttpStatus.ERROR, globalEnum_1.HttpMessage.ERROR);
@@ -439,18 +439,18 @@ __decorate([
     __metadata("design:returntype", typeof (_d = typeof globalClass_1.ResponseData !== "undefined" && globalClass_1.ResponseData) === "function" ? _d : Object)
 ], UserController.prototype, "createUser", null);
 __decorate([
-    (0, common_1.Get)(":id"),
-    __param(0, (0, common_1.Param)("id")),
+    (0, common_1.Get)(':id'),
+    __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", typeof (_e = typeof globalClass_1.ResponseData !== "undefined" && globalClass_1.ResponseData) === "function" ? _e : Object)
 ], UserController.prototype, "detailUser", null);
 __decorate([
-    (0, common_1.Put)(':id'),
-    __param(0, (0, common_1.Param)('id')),
-    __param(1, (0, common_1.Body)()),
+    (0, common_1.Put)('/:ID'),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Param)('ID')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, typeof (_f = typeof User_dto_1.UserDto !== "undefined" && User_dto_1.UserDto) === "function" ? _f : Object]),
+    __metadata("design:paramtypes", [typeof (_f = typeof User_dto_1.UserDto !== "undefined" && User_dto_1.UserDto) === "function" ? _f : Object, Number]),
     __metadata("design:returntype", typeof (_g = typeof globalClass_1.ResponseData !== "undefined" && globalClass_1.ResponseData) === "function" ? _g : Object)
 ], UserController.prototype, "updateUser", null);
 __decorate([
@@ -460,7 +460,7 @@ __decorate([
     __metadata("design:returntype", typeof (_h = typeof globalClass_1.ResponseData !== "undefined" && globalClass_1.ResponseData) === "function" ? _h : Object)
 ], UserController.prototype, "deleteUser", null);
 exports.UserController = UserController = __decorate([
-    (0, common_1.Controller)("users"),
+    (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [typeof (_a = typeof user_service_1.UserService !== "undefined" && user_service_1.UserService) === "function" ? _a : Object])
 ], UserController);
 
@@ -499,18 +499,13 @@ let UserService = class UserService {
         this.users.push(user);
         return user;
     }
-    detailUser(id) {
-        console.log(id);
-        return this.users.find(item => item.id == id);
+    detailUser(params) {
+        console.log(params);
+        return this.users[1];
     }
-    updateUser(id, userDto) {
-        console.log(userDto);
-        if (id == "hello") {
-            return this.users[1];
-        }
-        else {
-            return null;
-        }
+    updateUser(userDto, ID) {
+        console.log(userDto, ID);
+        return this.users[1];
     }
     deleteUser() {
         return "delete user";
@@ -707,7 +702,7 @@ module.exports = require("class-transformer");
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("37dc3f250d6f54476e8a")
+/******/ 		__webpack_require__.h = () => ("f930124f8c4415d46b53")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
